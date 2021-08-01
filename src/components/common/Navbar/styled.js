@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const PageWrap = styled.div`
     width:100vw;
     height:100vh;
+    background-color:white;
 `;
 export const TextMiddle = styled.div`
     position:absolute;
@@ -16,6 +17,7 @@ export const TextMiddle = styled.div`
 
 export const Back = styled.div`
   position: fixed;
+  background-color: white;
   padding-right: initial;
   width: 100%;
   z-index: 100;
@@ -28,12 +30,13 @@ export const MenuBack = styled.div`
   height: 3.2em;
   width: 90%
   position: relative;
-  max-width: 1060px;
-  display: block;
+  display: flex;
   box-sizing: border-box;
+  justify-content: center;
 `;
 
 export const NavigationBack = styled.nav`
+width: 70%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -43,23 +46,20 @@ export const NavigationBack = styled.nav`
 `;
 
 export const HomeLogo = styled.img`
-  display: block;
+  display: flex;
   cursor: pointer;
   padding-right: initial;
   width: 5em;
-  padding-bottom: 0.4em;
-  padding-left: 0.6em;
+  padding-bottom: 0.2em;
 `;
 
 export const Menus = styled.ul`
-  display: block;
+width:58%;
+padding-top:0.2em;
+  display: flex;
   flex-direction: row;
   list-style: none;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  padding-inline-start: 40px;
+  justify-content:space-evenly;
 }
 `;
 
@@ -72,7 +72,7 @@ export const MenuItem = styled.li`
 export const Item = styled.a`
   position: relative;
   font-size: 0.88em;
-  line-height: 0.1em;
+  line-height: 0.05em;
   font-weight: 600;
   padding-bottom: 0.6em;
   padding-left: 0.6em;
@@ -96,13 +96,8 @@ export const UserList = styled.ul`
   list-style: none;
   border: 0;
   flex-direction: row;
-<<<<<<< HEAD
-  // margin-block-start: 1em;
-  // margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
-=======
->>>>>>> 3709b66e5dfab945bf50f61ebb7f8c9f3df3aa70
 `;
 
 export const UserListItem = styled.li`
@@ -110,11 +105,8 @@ export const UserListItem = styled.li`
   display: inline-block;
   height: 100%;
   vertical-align: middle;
-<<<<<<< HEAD
   margin: 0;
   border: 0;
-=======
->>>>>>> 3709b66e5dfab945bf50f61ebb7f8c9f3df3aa70
 `;
 
 export const UserBtn = styled.button`
@@ -123,32 +115,26 @@ export const UserBtn = styled.button`
   padding: 0 10px;
   font-size: 1em;
   font-weight: 600;
-<<<<<<< HEAD
-  margin: 0;
-=======
->>>>>>> 3709b66e5dfab945bf50f61ebb7f8c9f3df3aa70
   border: 0;
   background: none;
   cursor: pointer;
 `;
 
 export const Line = styled.div`
-  position: relative;
+  position: center;
   font-size: 0.5em;
   font-weight: 100;
   color: grey;
   opacity: 0.4;
-  margin: 6px;
+  margin: 20px 6px;
 `;
 
 export const UserBtn2 = styled.button`
   position: relative;
-  height: 100%;
-  padding: 5px 10px 5px 10px;
+  height: 60%;
   font-size: 0.8rem;
   background-color: transparent;
-  margin-right: 15px;
-  margin-left: 15px;
+  margin: 10px 15px;
   border: 1px solid #e1e2e3;
   border-radius: 15px;
   cursor: pointer;

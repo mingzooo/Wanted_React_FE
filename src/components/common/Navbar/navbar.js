@@ -15,7 +15,7 @@ import {
 } from "./styled.js";
 import { useMediaQuery } from "react-responsive";
 import { BsSearch } from "react-icons/bs";
-// import Dropdown from "../../components/Dropdown/index.js";
+import Dropdown from "../../Dropdown/index.js";
 
 export const NAV = [
     {
@@ -41,7 +41,7 @@ export const NAV = [
     },
 ];
 
-function Navigation() {
+function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     // const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
     // const openModal = () => {
@@ -108,4 +108,4 @@ function Navigation() {
     );
 }
 
-export default Navigation;
+export default Navbar;
