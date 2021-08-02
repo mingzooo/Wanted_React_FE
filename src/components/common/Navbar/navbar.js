@@ -1,111 +1,69 @@
-import React, { useState } from "react";
-import {
-    NavigationBack,
-    HomeLogo,
-    MenuItem,
-    Menus,
-    MenuBack,
-    Back,
-    Item,
-    UserList,
-    UserListItem,
-    UserBtn,
-    UserBtn2,
-    Line,
-} from "./styled.js";
-import { useMediaQuery } from "react-responsive";
-import { BsSearch } from "react-icons/bs";
-import Dropdown from "../../Dropdown/index.js";
+import Menu from "./Menu";
+import MenuOverlay from "./MenuOverlay";
+import Aside from "./Aside";
+import styled from "styled-components";
+import { useState, useCallback, } from "react";
+import LoginModal from '../../LoginModal/LoginModal';
 
-export const NAV = [
-    {
-        title: "탐색",
-    },
-    {
-        title: "커리어 성장",
-    },
-    {
-        title: "직군별 연봉",
-    },
-    {
-        title: "이력서",
-    },
-    {
-        title: "매치업",
-    },
-    {
-        title: "프리랜서",
-    },
-    {
-        title: "Ai 합격예측",
-    },
-];
+const Navbar = () => {
+  //메뉴 드롭다운
+  const [isOverlayOpened, setOverlayOpened] = useState(false);
+  const onOpenOverlay = useCallback(() => setOverlayOpened(true), []);
+  const onCloseOverlay = useCallback(() => setOverlayOpened(false), []);
 
-function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
-    // const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
-    // const openModal = () => {
-    //     setIsMobileModalOpen(true);
-    // };
-    // const closeModal = () => {
-    //     setIsMobileModalOpen(false);
-    // };
-    const Desktop = ({ children }) => {
-        const isDesktop = useMediaQuery({ minWidth: 992 });
-        return isDesktop ? children : null;
-    };
+  //로그인
 
-    // 모바일용 반응형 구현하기
+  return (
+    <>
+      <Container>
+        <NavBox>
+          <Logo>wanted</Logo>
+          <Menu
+            isOverlayOpened={isOverlayOpened}
+            onOpenOverlay={onOpenOverlay}
+            onCloseOverlay={onCloseOverlay}
+          />
+          <Aside />
+        </NavBox>
+        <MenuOverlay opened={isOverlayOpened} onCloseOverlay={onCloseOverlay} />
+      </Container>
+      <LoginModal />
+    </>
+  );
+};
 
-    return (
-        <div>
-            {/* desktop */}
-            <Desktop>
-                <Back>
-                    <MenuBack>
-                        <NavigationBack>
-                            <HomeLogo
-                                src="https://theme.zdassets.com/theme_assets/9309779/480a35976bf401a88dd7388d8f5c19d77227cd35.png"
-                                alt="wanted"
-                            />
-                            <Menus>
-                                {NAV.map(item => (
-                                    <MenuItem
-                                        key={item.title}
-                                        title={item.title}
-                                        onMouseEnter={() =>
-                                            item.title === "탐색" ? setIsOpen(true) : setIsOpen(false)
-                                        }
-                                    >
-                                        <Item>{item.title}</Item>
-                                    </MenuItem>
-                                ))}
-                            </Menus>
-                            {/* <Dropdown isOpen={isOpen} onMouseLeave={() => setIsOpen(false)} /> */}
-                            <UserList>
-                                <UserListItem>
-                                    <UserBtn>
-                                        <BsSearch />
-                                    </UserBtn>
-                                </UserListItem>
-                                <UserListItem>
-                                    <UserBtn>
-                                        회원가입/로그인
-                                    </UserBtn>
-                                </UserListItem>
-                                <UserListItem>
-                                    <Line>|</Line>
-                                </UserListItem>
-                                <UserListItem>
-                                    <UserBtn2>기업 서비스</UserBtn2>
-                                </UserListItem>
-                            </UserList>
-                        </NavigationBack>
-                    </MenuBack>
-                </Back>
-            </Desktop>
-        </div>
-    );
-}
+const Container = styled.div`
+  width: 100%;
+  background-color: white;
+  position:fixed;
+`;
+
+const Logo = styled.div`
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  @media (max-width: 767px) {
+    display: none;
+  }
+`;
+
+const NavBox = styled.nav`
+  //Mobile
+  @media screen and (max-width: 780px) {
+    width: 70%;
+    height: 50px;
+  }
+  //PC
+  @media (min-width: 1200px) {
+    width: 70%;
+    height: 50px;
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  background-color: white;
+  z-index: 200;
+`;
 
 export default Navbar;
