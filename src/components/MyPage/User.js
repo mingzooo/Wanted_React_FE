@@ -9,7 +9,7 @@ const User = () => {
   const applyStatus = USERDATA.applyStatus;
 
   const goToDetail = () => {
-    history.push(`/detail/`); //나중에 개별로 id로 push 해주기
+    history.push(`/detail`); //나중에 개별로 id로 push 해주기
     window.scrollTo(0, 0);
   };
 
@@ -38,7 +38,7 @@ const User = () => {
       </ApplicationStatus>
       <BookMark>
         <Title>원티드 추천 포지션</Title>
-        <List bookmark>
+        <List>
           {userBookMark.map(item => {
             return (
               <ListItem id={item.id} oneLine onClick={() => goToDetail()}>
@@ -106,7 +106,6 @@ const ApplicationStatus = styled.div`
 
 const BookMark = styled.div`
   background: white;
-  position: relative;
   padding: 26px 0 34px;
   border-bottom: none;
   border-top-left-radius: 5px;
@@ -130,18 +129,10 @@ const List = styled.ul`
   width: 100%;
   margin: 0 5px;
 
-  & > li {
+  li {
     display:flex;
     flex-direction: column;
-    width: ${props => (props.bookmark ? '100%' : '50%')};
-
-    &:nth-child(odd) {
-      padding-right: ${props => (props.bookmark ? '0' : '10px')};
-    }
-
-    &:nth-child(even) {
-      padding-left: ${props => (props.bookmark ? '0' : '10px')};
-    }
+    width: 100%;
   }
 `;
 
@@ -161,9 +152,8 @@ const ListItem = styled.li`
   }
 
   div {
-    &:nth-child(2) {
-      width: ${props => props.oneLine && '160px'};
-    }
+      width: 90%;
+      align-items:center;
 
     h3 {
       margin-bottom: 8px;
