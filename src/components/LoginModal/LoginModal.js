@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components"
 import { connect } from "react-redux";
 import { changeModal, changeLogin, kindLogin } from "../../store/actions";
-// import { API } from "../../config";
+import { API } from "../../config";
 import { withRouter } from "react-router-dom";
 
 const LoginModal = ({ changeModal, changeLogin, modalOnoff, kindLogin, history }) => {
@@ -65,11 +65,8 @@ const LoginModal = ({ changeModal, changeLogin, modalOnoff, kindLogin, history }
     if (isValiEmail === false) { // email validate 실패시
       setValiBoxEmail(true)  // 경고박스 온
     } else {
-      fetch(`/account/emailcheck`, {
-        // method: "POST",
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
+      fetch(`/profile/email`, {
+        method: "POST",
         body: JSON.stringify({
           "email": inputEmail,
         })
@@ -77,10 +74,11 @@ const LoginModal = ({ changeModal, changeLogin, modalOnoff, kindLogin, history }
         .then((response) => response.json())
         .then(
           function innerFunc(res) {
-            if (res.message === "To Login") { // emailcheck.status가 200일 경우 비회원
+            console.log(res.result);
+            if (res.result === false) { // emailcheck.status가 2101일 경우 비회원
               setIsView(1) // 비회원창으로 보낸다
             }
-            if (res.message === "To Signup") { // emailcheck.status가 401일 경우 비회원
+            if (res.result === true) { // emailcheck.status가 1000일 경우 비회원
               setIsView(2) // 회원창으로 보낸다
             }
           }
@@ -103,11 +101,8 @@ const LoginModal = ({ changeModal, changeLogin, modalOnoff, kindLogin, history }
     if (isValiPass === false) { // password validate 실패시
       setValiBoxPass(true) // 경고박스 온
     } else {
-      fetch(`/account/signin`, {
-        // method: "POST",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
+      fetch(`${API}/account/signin`, {
+        method: "POST",
         body: JSON.stringify({
           "email": inputEmail,
           "password": inputPass,
@@ -166,13 +161,10 @@ const LoginModal = ({ changeModal, changeLogin, modalOnoff, kindLogin, history }
     if (isValiName) { // name validate 성공하고
       if (isValiPass) { // pass validate 성공하고
         if (isValiPassCon) { // passCon validate 성공하고     
-          fetch(`/account/signup`, {
-            // method: "POST",
-            // headers: {
-            //   "Content-Type": "application/json",
-            // },
+          fetch(`${API}/profile`, {
+            method: "POST",
             body: JSON.stringify({
-              "username": inputName,
+              "name": inputName,
               "email": inputEmail,
               "password": inputPass,
             })
@@ -254,7 +246,7 @@ const LoginModal = ({ changeModal, changeLogin, modalOnoff, kindLogin, history }
               <i>Apple로 시작하기</i>
             </SnsButton>
             <SnsButton margin>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path fill="#000" fill-rule="nonzero" d="M13.852 9.563c.025 2.724 2.36 3.63 2.386 3.642-.02.064-.373 1.292-1.23 2.56-.741 1.096-1.51 2.189-2.722 2.212-1.19.022-1.574-.715-2.935-.715-1.36 0-1.786.692-2.913.737-1.17.045-2.06-1.186-2.807-2.278C2.104 13.486.937 9.406 2.504 6.65c.778-1.367 2.169-2.233 3.679-2.255 1.148-.023 2.232.782 2.934.782s2.02-.968 3.404-.826c.58.025 2.207.238 3.252 1.786-.084.053-1.941 1.147-1.921 3.425m-2.238-6.689c.621-.76 1.04-1.82.925-2.874-.895.036-1.977.604-2.62 1.364-.575.674-1.078 1.751-.943 2.785.998.078 2.017-.514 2.638-1.275"></path></svg>
+              <svg xmlns="https://image.flaticon.com/icons/png/512/281/281764.png" width="18" height="18" viewBox="0 0 18 18"><path fill="#000" fill-rule="nonzero" d="M13.852 9.563c.025 2.724 2.36 3.63 2.386 3.642-.02.064-.373 1.292-1.23 2.56-.741 1.096-1.51 2.189-2.722 2.212-1.19.022-1.574-.715-2.935-.715-1.36 0-1.786.692-2.913.737-1.17.045-2.06-1.186-2.807-2.278C2.104 13.486.937 9.406 2.504 6.65c.778-1.367 2.169-2.233 3.679-2.255 1.148-.023 2.232.782 2.934.782s2.02-.968 3.404-.826c.58.025 2.207.238 3.252 1.786-.084.053-1.941 1.147-1.921 3.425m-2.238-6.689c.621-.76 1.04-1.82.925-2.874-.895.036-1.977.604-2.62 1.364-.575.674-1.078 1.751-.943 2.785.998.078 2.017-.514 2.638-1.275"></path></svg>
               <i>Google로 시작하기</i>
             </SnsButton>
             <p>걱정마세요! 여러분의 지원 활동은 SNS에 노출되지 않습니다.</p>
