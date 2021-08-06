@@ -3,7 +3,7 @@ import MenuOverlay from "./MenuOverlay";
 import Aside from "./Aside";
 import styled from "styled-components";
 import { useState, useCallback, } from "react";
-import LoginModal from '../../LoginModal/LoginModal';
+import LoginModal from '../../Login/LoginModal';
 
 const Navbar = () => {
   //메뉴 드롭다운
@@ -34,8 +34,9 @@ const Navbar = () => {
 
 const Container = styled.div`
   width: 100%;
-  background-color: white;
+  background: #ffffff;
   position:fixed;
+  border-bottom: 1px solid #e1e2e3;
 `;
 
 const Logo = styled.div`

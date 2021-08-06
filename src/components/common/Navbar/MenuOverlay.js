@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useRef } from "react";
-import { EXPLORE_CONTENT } from "../../../data/dropdownDB";
+import { EXPLORE_CONTENT } from "../../../data/dropdownData";
 import { ArrowIosForwardOutline } from "@styled-icons/evaicons-outline";
 import ExploreEachLists from "./ExploreEachList";
 
