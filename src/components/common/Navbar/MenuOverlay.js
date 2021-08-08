@@ -41,6 +41,7 @@ const ExploreContent = styled.div`
   overflow: hidden;
   transition: ${(props) =>
         props.opened ? 'max-height 0.8s ease-in-out' : 'none'};
+    z-index:3;
 `;
 
 const ExploreContainer = styled.div`

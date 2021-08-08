@@ -17,7 +17,7 @@ const Navbar = () => {
     <>
       <Container>
         <NavBox>
-          <Logo>wanted</Logo>
+          <Logo><img src="https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Ftheme.zdassets.com%2Ftheme_assets%2F9309779%2F480a35976bf401a88dd7388d8f5c19d77227cd35.png" /></Logo>
           <Menu
             isOverlayOpened={isOverlayOpened}
             onOpenOverlay={onOpenOverlay}
@@ -37,12 +37,16 @@ const Container = styled.div`
   background: #ffffff;
   position:fixed;
   border-bottom: 1px solid #e1e2e3;
+  z-index:3;
+  color: #060606;
 `;
 
 const Logo = styled.div`
-  font-size: 22px;
-  font-weight: 700;
+  width: 7%;
   cursor: pointer;
+  img{
+    width: 100%;
+  }
   @media (max-width: 767px) {
     display: none;
   }

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Search } from "@styled-icons/boxicons-regular";
+import { Search } from "@styled-icons/material-sharp/Search";
 import { NotificationsNone } from "@styled-icons/material-sharp";
 import { UserCircle } from "@styled-icons/boxicons-solid";
 import { Menu } from "@styled-icons/boxicons-regular";
@@ -19,7 +19,6 @@ const Aside = ({ changeModal, loginCheck }) => {
         <SearchIcon />
       </List>
       <List onClick={() => changeModal(true)} loginCheck={loginCheck} >
-        {/* 모달 어떻게 해야되지... */}
         회원가입/로그인
       </List>
       {/* 알람하고 사용자아이콘은 로그인한 후에 */}
@@ -47,9 +46,10 @@ const Container = styled.ul`
 
 const List = styled.li`
   cursor: pointer;
-  font-size:0.9rem;
-  font-weight:bold;
+  font-size:0.88rem;
+  font-weight: 550;
   margin-right:1rem;
+  color:#0D0D0D;
   //mobile
   @media screen and (max-width: 767px) {
     &:nth-child(3),
@@ -81,10 +81,9 @@ const UserIcon = styled(UserCircle)`
 const Button = styled.button`
   border: 1px solid #e1e2e3;
   border-radius: 15px;
-  padding: 0 10px;
   margin: 0 0 0 15px;
   font-weight: 400;
-  padding: 8px 12px;
+  padding: 5px 10px;
   background-color: white;
   color: #666666;
   cursor: pointer;
