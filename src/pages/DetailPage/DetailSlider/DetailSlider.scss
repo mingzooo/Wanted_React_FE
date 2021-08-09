@@ -1,0 +1,18 @@
+.DetailSlider {
+  .slick-slider{
+    position: relative;
+      .slick-arrow::before {
+        z-index: 1;
+        font-size: 30px;
+        color:  #c8c8c8;
+      }
+      .slick-prev {
+        z-index: 1;
+        left:15px;
+        cursor: pointer;
+      }
+      .slick-next {
+        left: 650px;
+      }
+    }
+}
