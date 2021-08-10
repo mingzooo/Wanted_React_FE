@@ -4,10 +4,11 @@ const Detail =
   job_detail: {
     id: 2,
     title: "[신규 제품 개발팀] DevOps엔진",
-    name: "고속스핀",
+    name: "카카오뱅크",
     response_rate: 65,
     button: true,
-    city: "서울",
+    city: "한국",
+    state: "서울",
     compensation_recommender: '500,000',
     compensation_applicant: '500,000',
     likes_count: 6,
@@ -16,9 +17,9 @@ const Detail =
       " https://images.unsplash.com/photo-1582653291997-079a1c04e5a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
     ],
     contents:
-      "우리는 발명왕 에디슨으로 빙의하는 고속스핀 고속으로 스핀하는것의 의미는 우리는 빠른속도로 발명을 하겠다는 의미 우리는 발명왕 에디슨으로 빙의하는 고속스핀 고속으로 스핀하는것의 의미는 우리는 빠른속도로 발명을 하겠다는 의미",
-    deadline: "2020.11.09",
-    address: "서울특별시 금천구 벚꽃로 298",
+      "일상에서 더 쉽게, 더 자주 이용하는 나만의 은행 카카오뱅크는 사람과 은행의 만남이 더 쉽게, 더 자주 일어나야 한다고 믿습니다. 사용자 중심의 혁신적인 기술을 통해 일상 속 어떤 순간에서도 유용한 나만의 은행. 카카오뱅크는 또 하나의 은행이 아닌 은행의 새로운 시작 입니다.",
+    deadline: "2021.08.17",
+    address: "경기도 성남시 분당구 삼평동 H스퀘어 S동 5층",
     location: ["37.481406", "126.883858"],
     tag_list: [
       {

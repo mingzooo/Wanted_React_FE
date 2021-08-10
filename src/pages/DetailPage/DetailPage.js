@@ -6,6 +6,8 @@ import { DetailPage_API } from "../../config";
 import Detail from "./DetailData";
 import Navbar from "../../components/common/Navbar/navbar";
 import { PageWrap } from "../../components/common/styled";
+import DetailLike from "./DetailLike";
+import DetailSupport from "./DetailSupport";
 
 const DetailPage = () => {
   // const [detail, setDetail] = useState({
@@ -26,7 +28,7 @@ const DetailPage = () => {
   //   color: "#dbdbdb",
   //   button: false,
   // })
-
+  const [changePage, setCompoChange] = useState(false);
   const [detail, setDetail] = useState(Detail.job_detail);
 
   // componentDidMount() {
@@ -47,21 +49,14 @@ const DetailPage = () => {
   //     });
   // }
 
-  const handleChangeColor = () => {
-    if (detail.color === "#fe415c") {
-      setDetail({ color: "#dbdbdb", likes_count: detail.likes_count - 1 });
-    } else {
-      setDetail({
-        color: "#fe415c",
-        likes_count: detail.likes_count + 1,
-      });
-    }
-  };
-
   const handleChangeBtn = () => {
     if (detail.response_rate > 50) {
       setDetail({ button: true });
     }
+  };
+
+  const handleComponentChange = () => {
+    setCompoChange(!changePage);
   };
 
 
@@ -79,8 +74,9 @@ const DetailPage = () => {
               <div className="contents1">
                 <h6>{detail.name}</h6>
                 {detail.button && (
-                  <button onChange={handleChangeBtn}> 응답률높음</button>
+                  <button onChange={handleChangeBtn}> 응답률 매우 높음</button>
                 )}
+                <h5>{detail.state}</h5>
                 <h5>{detail.city}</h5>
               </div>
               <div className="tagArea">
@@ -133,23 +129,22 @@ const DetailPage = () => {
                 <li class="far fa-bookmark"></li>
                 <li>북마크하기</li>
               </button>
-              <ApplyButton>지원하기</ApplyButton>
+              <ApplyButton
+                {...detail}
+                onClick={() => {
+                  handleComponentChange();
+                }}
+              >지원하기</ApplyButton>
             </div>
-            <div className="likeArea">
-              <button className="likeCount">
-                <button
-                  onClick={handleChangeColor}
-                  style={{ color: detail.color }}
-                  className="fas fa-heart"
-                ></button>
-                <span>{detail.likes_count}</span>
-              </button>
-              <button className="likePeople">
-                <i class="far fa-user-circle"></i>
-              </button>
-            </div>
+            <DetailLike Detail={detail} />
           </div>
         </DetailPageInner>
+        {changePage && (
+          <DetailSupport
+            data={detail}
+            handleComponentChange={handleComponentChange}
+          />
+        )}
       </DetailPageBox>
     </PageWrap>
   );
@@ -213,11 +208,12 @@ const DetailPageInner = styled.div`
         }
         button {
           margin: 10px;
-          padding: 5px;
-          font-size: 12px;
+          padding: 1.5px;
+          font-size: 10px;
+          font-weight: bold;
           background-color:#fff;
-          color: #36f;
-          border: 1px solid #36f;
+          color: rgb(41, 192, 192);
+          border: 1px solid rgb(41, 192, 192);
         }
         h5 {
           display: flex;
@@ -307,6 +303,7 @@ const DetailPageInner = styled.div`
   .asideArea {
     display:flex;
     flex-direction:column;
+    justify-content: space-between;
     position: fixed;
     right: 15%;
     width: 20%;
@@ -317,30 +314,37 @@ const DetailPageInner = styled.div`
     border-radius: 3px;
     .asideBox {
       width:100%;
-      margin-bottom:-5%;
-      padding:0;
+      padding:5px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 30%;
       h3 {
-        margin-bottom:-5%;
         font-size: 15px;
         font-weight: 600;
         text-align: left;
         color: #333;
       }
       ul {
+        width: 100%;
         display:flex;
         flex-direction:row;
-        margin-left:-12%;
         li {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
           width: 50%;
           list-style:none;
           text-align: left;
           h4 {
+            height: 50%;
             font-size: 14px;
             font-weight: 700;
             color: #999;
+            margin-bottom: 0.7rem;
           }
           p {
-            margin-top:-5%;
+            height: 50%;
             font-size: 16px;
             color: #333;
             font-weight: 800;
@@ -353,6 +357,8 @@ const DetailPageInner = styled.div`
       display:flex;
       flex-direction:column;
       cursor: pointer;
+      height: 38%;
+      justify-content: space-between;
       .bookMark {
         cursor:pointer;
         width: 100%;
