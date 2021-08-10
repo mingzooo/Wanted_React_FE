@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const Menu = ({ isOverlayOpened, onOpenOverlay, onCloseOverlay }) => {
+  const history = useHistory();
   const [clickedIndex, setIndex] = useState();
 
   const ref = useRef();
@@ -15,7 +17,7 @@ const Menu = ({ isOverlayOpened, onOpenOverlay, onCloseOverlay }) => {
 
   return (
     <Container ref={ref}>
-      <List id="1" index={clickedIndex} ref={searchRef}>
+      <List id="1" index={clickedIndex} onClick={() => { history.push("/joblist"); }} ref={searchRef}>
         탐색
       </List>
       <List id="2" index={clickedIndex}>
@@ -24,7 +26,7 @@ const Menu = ({ isOverlayOpened, onOpenOverlay, onCloseOverlay }) => {
       <List id="3" index={clickedIndex}>
         직군별 연봉
       </List>
-      <List id="4" index={clickedIndex}>
+      <List id="4" index={clickedIndex} onClick={() => { history.push("/cv"); }}>
         이력서
       </List>
       <List id="5" index={clickedIndex}>
@@ -56,7 +58,7 @@ const List = styled.li`
   font-size: 0.88rem;
   font-weight: 550;
   cursor: pointer;
-  padding: 18px 0;
+  padding: 17px 0;
   &:nth-child(${(props) => props.index}) {
     box-shadow: inset 0 -2px #258bf7;
   }
