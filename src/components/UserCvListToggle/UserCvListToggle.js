@@ -5,12 +5,11 @@ import { API } from "../../config"
 const UserCvListToggle = (props) => {
 
   const deleteFunc = () => {
-    const token = localStorage.getItem("access_token");
-    fetch(`${API}/resume/detail/${props.index}`, {
-      method: "DELETE",
+    const token = localStorage.getItem("X-ACCESS-TOKEN");
+    fetch(`cvs`, {
+      method: "PATCH",
       headers: {
-        // Authorization:token,
-        "Authorization": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50X2lkIjo0fQ.w1z54j_Vf6rmysn_8a2S0AKrwZ54vrBufrNCxaBbg_g",
+        "Authorization": token,
         'Content-Type': 'application/json',
       }
     })

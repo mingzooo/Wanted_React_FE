@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components"
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -10,8 +10,12 @@ import UserCvList from "../../components/UserCvList/UserCvList";
 
 const CvPage = ({ loginCheck, history }) => {
 
-  const [isLogin, setLogin] = useState(false)
-  const [isToggle, setToggle] = useState(0)
+  const [isLogin, setLogin] = useState(false);
+  const [isToggle, setToggle] = useState(0);
+  const [selectedFile, setSelectedFile] = useState([]);
+  const [isSelected, setIsSelected] = useState(false);
+  const hiddenFileInput = useRef(null);
+  const token = localStorage.getItem('X-ACCESS-TOKEN');
 
   useEffect(() => {
     loginCheck ? setLogin(true) : setLogin(false)
@@ -21,13 +25,30 @@ const CvPage = ({ loginCheck, history }) => {
     document.documentElement.scrollTop = 0;
   }, [])
 
-  function inputFucn(input) {
-    if (input === 1) {
-      history.push("/cv/0");
-    } else {
-      alert("파일 업로드 서비스는 곧 업데이트 됩니다!")
-    }
-  }
+  const handleFileChange = e => {
+    const file = e.target.files[0];
+    setSelectedFile(selectedFile.concat(file));
+    const formData = new FormData();
+    formData.append('File', file);
+
+    fetch(`/cvs`, {
+      method: 'POST',
+      headers: {
+        "X-ACCESS-TOKEN": token,
+      },
+      body: formData,
+    })
+      .then(res => res.json())
+      .then(result => {
+        setIsSelected(!isSelected);
+      })
+      .catch(error => console.log(error));
+  };
+
+  //파일 업로드
+  const handleClickUpload = e => {
+    hiddenFileInput.current.click();
+  };
 
   return (
     <>
@@ -83,7 +104,7 @@ const CvPage = ({ loginCheck, history }) => {
             </Title>
             <Contents>
               <ContentsWarp>
-                <InnerBox onClick={() => inputFucn(1)}>
+                <InnerBox onClick={() => history.push("/cv/0")}>
                   <BoxWrap>
                     <IBox blue >
                       <Icon url={newfile} top="15%" left="18%" size="50px" />
@@ -91,12 +112,24 @@ const CvPage = ({ loginCheck, history }) => {
                     <span>새 이력서 작성</span>
                   </BoxWrap>
                 </InnerBox>
-                <InnerBox onClick={() => inputFucn(2)}>
-                  <BoxWrap>
+                <InnerBox onClick={handleClickUpload}>
+                  <BoxWrap >
                     <IBox>
                       <Icon url={upload} top="33%" left="33%" size="25px" />
                     </IBox>
                     <span>파일 업로드</span>
+                    <form
+                      action="/resumes/files"
+                      method="post"
+                      encType="multipart/form-data"
+                    >
+                      <input
+                        style={{ display: 'none' }}
+                        onChange={handleFileChange}
+                        ref={hiddenFileInput}
+                        type="file"
+                      ></input>
+                    </form>
                   </BoxWrap>
                 </InnerBox>
                 <UserCvList isToggle={isToggle} setToggle={setToggle} />

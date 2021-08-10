@@ -76,12 +76,12 @@ const CvDetailPage = (props) => {
     // if (isValiTitle) {
     //   if (isValiIntro) {
     //     if (isValiCareer) {
-    const token = localStorage.getItem("access_token");
-    fetch(`${API}/resume/detail/${props.match.params.index}`, {
+    const token = localStorage.getItem("X-ACCESS-TOKEN");
+    fetch(`/cvs`, {
       method: "POST",
       headers: {
         // Authorization:token,
-        "Authorization": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50X2lkIjo0fQ.w1z54j_Vf6rmysn_8a2S0AKrwZ54vrBufrNCxaBbg_g",
+        "X-ACCESS-TOKEN": token,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

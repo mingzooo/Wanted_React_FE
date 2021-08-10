@@ -3,28 +3,26 @@ import styled from "styled-components"
 import { withRouter } from "react-router-dom"
 import UserCvListToggle from "../UserCvListToggle/UserCvListToggle"
 import { MdMoreVert } from 'react-icons/md';
-import { API } from "../../config"
 
 const UserCvList = (props) => {
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     getFunc();
   }, [])
 
   function getFunc() {
-    const token = localStorage.getItem("access_token");
-    fetch(`${API}/resume/list`, {
+    const token = localStorage.getItem("X-ACCESS-TOKEN");
+    fetch(`/cvs`, {
+      method: 'GET',
       headers: {
-        // "Authorization":token,  
-        "Authorization": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50X2lkIjo0fQ.w1z54j_Vf6rmysn_8a2S0AKrwZ54vrBufrNCxaBbg_g",
-        'Content-Type': 'application/json',
+        "X-ACCESS-TOKEN": token,
       }
     })
       .then((response) => response.json())
       .then((res) => {
-        setData(res)
+        setData(res.result);
       })
   }
 
@@ -42,14 +40,14 @@ const UserCvList = (props) => {
 
   return (
     <>
-      {data.resume && data.resume.map((item, inx) => {
+      {data && data.map((item, inx) => {
         return (
           <Cover>
             <BoxWrap>
               <InnerBox key={inx}>
                 <HeaderWarp onClick={() => { moveDetailFunc(item.id); props.setToggle(0); }}>
                   <NameIng color={validation(item.intro)}>{item.title}</NameIng>
-                  <DateSpan>{(item.updated_at).substring(0, 10)}</DateSpan>
+                  <DateSpan>{(item.updateDate).substring(0, 10)}</DateSpan>
                 </HeaderWarp>
                 <TextIng color={validation(item.intro)}>
                   <NonClickBox onClick={() => { moveDetailFunc(item.id); props.setToggle(0); }} color={validation(item.intro)}><span>{validation(item.intro)}</span></NonClickBox>
@@ -60,7 +58,8 @@ const UserCvList = (props) => {
             <UserCvListToggle index={item.id} isToggle={props.isToggle} getFunc={getFunc} />
           </Cover>
         )
-      })}
+      })
+      }
     </>
   )
 }
