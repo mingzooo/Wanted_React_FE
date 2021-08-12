@@ -7,13 +7,14 @@ import { MdMoreVert } from 'react-icons/md';
 const UserCvList = (props) => {
 
   const [data, setData] = useState([]);
+  const token = localStorage.getItem("X-ACCESS-TOKEN");
 
   useEffect(() => {
     getFunc();
+    console.log("이력서 목록조회");
   }, [])
 
   function getFunc() {
-    const token = localStorage.getItem("X-ACCESS-TOKEN");
     fetch(`/cvs`, {
       method: 'GET',
       headers: {
@@ -23,15 +24,16 @@ const UserCvList = (props) => {
       .then((response) => response.json())
       .then((res) => {
         setData(res.result);
+        console.log(data);
       })
   }
 
   function moveDetailFunc(input) {
-    props.history.push(`/cv/${input}`)
+    props.history.push(`/cvs/${input}`)
   }
 
   function validation(input) {
-    if (input.length > 5) {
+    if (input !== null) {
       return "작성 완료"
     } else {
       return "작성 중"
@@ -45,17 +47,17 @@ const UserCvList = (props) => {
           <Cover>
             <BoxWrap>
               <InnerBox key={inx}>
-                <HeaderWarp onClick={() => { moveDetailFunc(item.id); props.setToggle(0); }}>
-                  <NameIng color={validation(item.intro)}>{item.title}</NameIng>
+                <HeaderWarp onClick={() => { moveDetailFunc(item.cvIdx); props.setToggle(0); }}>
+                  <NameIng color={validation(item.isUploaded)}>{item.title}</NameIng>
                   <DateSpan>{(item.updateDate).substring(0, 10)}</DateSpan>
                 </HeaderWarp>
-                <TextIng color={validation(item.intro)}>
+                <TextIng color={validation(item.introduction)}>
                   <NonClickBox onClick={() => { moveDetailFunc(item.id); props.setToggle(0); }} color={validation(item.intro)}><span>{validation(item.intro)}</span></NonClickBox>
                   <ClickBox onClick={() => props.isToggle !== item.id ? props.setToggle(item.id) : props.setToggle(0)}><MdMoreVert /></ClickBox>
                 </TextIng>
               </InnerBox>
             </BoxWrap>
-            <UserCvListToggle index={item.id} isToggle={props.isToggle} getFunc={getFunc} />
+            <UserCvListToggle index={item.cvIdx} isToggle={props.isToggle} getFunc={getFunc} />
           </Cover>
         )
       })
@@ -63,8 +65,6 @@ const UserCvList = (props) => {
     </>
   )
 }
-
-export default withRouter(UserCvList);
 
 const Cover = styled.div`
   display:flex;
@@ -152,3 +152,5 @@ const ClickBox = styled.div`
     opacity:0.5;
   }
 `;
+
+export default withRouter(UserCvList);

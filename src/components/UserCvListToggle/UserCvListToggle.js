@@ -4,9 +4,10 @@ import { API } from "../../config"
 
 const UserCvListToggle = (props) => {
 
+  const token = localStorage.getItem("X-ACCESS-TOKEN");
+
   const deleteFunc = () => {
-    const token = localStorage.getItem("X-ACCESS-TOKEN");
-    fetch(`cvs`, {
+    fetch(`/cvs`, {
       method: "PATCH",
       headers: {
         "Authorization": token,

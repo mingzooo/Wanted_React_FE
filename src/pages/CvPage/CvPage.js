@@ -36,7 +36,7 @@ const CvPage = ({ loginCheck, history }) => {
       headers: {
         "X-ACCESS-TOKEN": token,
       },
-      body: formData,
+      // body: formData,
     })
       .then(res => res.json())
       .then(result => {
