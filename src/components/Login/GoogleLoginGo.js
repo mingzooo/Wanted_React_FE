@@ -10,7 +10,7 @@ const GoogleLoginGo = ({ changeLogin, changeModal, kindLogin, history }) => {
   return (
     <GoogleLogin
       cookiePolicy={'single_host_origin'} isSignedIn={false}
-      clientId="861775320154-ilum0enh5s77foemr8sj4peag8vpi2ab.apps.googleusercontent.com"
+      clientId="95532860446-c8epnqedahgonnetd4ahe925c1gs00f8.apps.googleusercontent.com"
       render={props => (
         <SnsButton onClick={props.onClick} disabled={props.disabled}>
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><g fill="none" fill-rule="evenodd"><path fill="#EA4335" d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z"></path><path fill="#4285F4" d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"></path><path fill="#FBBC05" d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9.008 9.008 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z"></path><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"></path><path d="M0 0h18v18H0z"></path></g></svg>
@@ -18,35 +18,42 @@ const GoogleLoginGo = ({ changeLogin, changeModal, kindLogin, history }) => {
         </SnsButton>
       )}
       onSuccess={
-        (res) => {
-          localStorage.setItem("googleToken", res.wc.access_token); // google 토큰 저장
-          const googleToken = localStorage.getItem("googleToken") // google 토큰 가져오기
-          fetch(`${API}/account/sociallogin`, {
-            method: "POST",
-            headers: {
-              Authorization: googleToken, // google 토큰 보내기
-              "Content-Type": "application/json",
-            }
-          })
-            .then((response) => response.json())
-            .then(
-              function SucSet(res) {
-                localStorage.setItem("access_token", res.access_token); // BackEnd에서 온 토큰 저장
-                localStorage.removeItem("googleToken"); // BackEnd 토큰 왔으니 google토큰은 제거
-                changeModal(false);
-                changeLogin(true);
-                kindLogin("google"); // login인 종류를 google로 확인해준다
-                document.documentElement.scrollTop = 0;
-                history.push("/main")
-              }
-            )
+        function Sucset() {
+          changeModal(false);
+          changeLogin(true);
+          kindLogin("google"); // login인 종류를 google로 확인해준다
+          document.documentElement.scrollTop = 0;
+          history.push("/home");
         }
+        // (res) => {
+        //   console.log(res);
+        //   localStorage.setItem("googleToken", res.Zb.access_token); // google 토큰 저장
+        //   const googleToken = localStorage.getItem("googleToken"); // google 토큰 가져오기
+        //   fetch(`/auth/google`, {
+        //     method: "POST",
+        //     headers: {
+        //       Authorization: googleToken, // google 토큰 보내기
+        //       "Content-Type": "application/json",
+        //     }
+        //   })
+        //     .then((response) => response.json())
+        //     .then(
+        //       function SucSet(res) {
+        //         localStorage.setItem("access_token", res.access_token); // BackEnd에서 온 토큰 저장
+        //         localStorage.removeItem("googleToken"); // BackEnd 토큰 왔으니 google토큰은 제거
+        //         changeModal(false);
+        //         changeLogin(true);
+        //         kindLogin("google"); // login인 종류를 google로 확인해준다
+        //         document.documentElement.scrollTop = 0;
+        //         history.push("/home");
+        //       }
+        //     )
+        // }
       }
     />
   )
 }
 
-export default withRouter(connect(null, { changeLogin, changeModal, kindLogin })(GoogleLoginGo));
 
 const SnsButton = styled.button`
   outline:0;
@@ -70,3 +77,5 @@ const SnsButton = styled.button`
     font-weight: 600;
   }
 `;
+
+export default withRouter(connect(null, { changeLogin, changeModal, kindLogin })(GoogleLoginGo));

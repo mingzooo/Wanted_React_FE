@@ -96,7 +96,7 @@ const LoginModal = ({ changeModal, changeLogin, modalOnoff, kindLogin, history }
     if (isValiEmail === false) { // email validate 실패시
       setValiBoxEmail(true)  // 경고박스 온
     } else {
-      fetch(`/profile/email`, {
+      fetch(`/profiles/emails`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ const LoginModal = ({ changeModal, changeLogin, modalOnoff, kindLogin, history }
     if (isValiPass === false) { // password validate 실패시
       setValiBoxPass(true); // 경고박스 온
     } else {
-      fetch(`/profile/login`, {
+      fetch(`/profiles/login`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ const LoginModal = ({ changeModal, changeLogin, modalOnoff, kindLogin, history }
           function innerFunc(res) {
             if (res.isSuccess === true) { // 로그인 성공
               console.log(res.result.jwt);
-              localStorage.setItem('X-ACCESS_TOKEN', res.result.jwt); // BackEnd에서 온 토큰 저장
+              localStorage.setItem("X-ACCESS-TOKEN", res.result.jwt); // BackEnd에서 온 토큰 저장
               sucSet(); // password validate 성공시 로그인 성공 세트 함수 실행
             }
             else {
@@ -199,7 +199,7 @@ const LoginModal = ({ changeModal, changeLogin, modalOnoff, kindLogin, history }
     if (isValiName) { // name validate 성공하고
       if (isValiPass) { // pass validate 성공하고
         if (isValiPassCon) { // passCon validate 성공하고     
-          fetch(`/profile`, {
+          fetch(`/profiles`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',
