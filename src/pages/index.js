@@ -2,7 +2,7 @@ import styled from "styled-components"
 import Navbar from "../components/common/Navbar/navbar";
 import Footer from "../components/common/Footer/Footer";
 import { useHistory } from "react-router-dom";
-import { PageWrap } from "../components/common/Navbar/styled";
+import { PageWrap } from "../components/common/styled";
 import IntroComponents from "../components/Intro/intro";
 
 const IndexPage = () => {
@@ -21,7 +21,7 @@ const IndexPage = () => {
               행복하게, 원티드
             </Title>
             <SubTitle>지금 원티드와 커리어 여정을 시작하세요.</SubTitle>
-            <Button onClick={() => history.push("/cv")}>지금 시작하기</Button>
+            <Button onClick={() => history.push("/login")}>지금 시작하기</Button>
           </Contents>
         </NewintroPic>
         <IntroComponents />
@@ -37,7 +37,7 @@ const IndexPage = () => {
               <br />
               원티드와 커리어 여정을 함께합니다.
             </LastsubTitle>
-            <Button onClick={() => history.push("/cv")}>지금 시작하기</Button>
+            <Button onClick={() => history.push("/login")}>지금 시작하기</Button>
           </LastContent>
         </LastnewintroPic>
       </NewintroContainer>
