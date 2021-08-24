@@ -7,27 +7,28 @@ function SearchListModal({ postingInfo }) {
     <section>
       <div>
         <ListContainer>
-          {postingInfo?.companies.map(company => (
-            <Link to={`/search?query=${company.name}`}>
+          {postingInfo?.map(company => (
+            <Link to={`/search?query=${company.company.name}`}>
               <List>
-                <p>{company.name}</p>
+                <p>{company.company.name}</p>
+                {console.log(company.company.name)}
               </List>
             </Link>
           ))}
-          {postingInfo?.jobPostings.map(posting => (
+          {/* {postingInfo.jobPostings.map(posting => (
             <Link to={`/search?query=${posting.title}`}>
               <List>
                 <p>{posting.title}</p>
               </List>
             </Link>
           ))}
-          {postingInfo?.tags.map(tag => (
+          {postingInfo.tags.map(tag => (
             <Link to={`/tag-search?tag=${tag.name}`}>
               <List>
                 <p>#{tag.name}</p>
               </List>
             </Link>
-          ))}
+          ))} */}
         </ListContainer>
       </div>
     </section>
@@ -48,7 +49,9 @@ const ListContainer = styled.ul`
 `;
 
 const List = styled.li`
-  ${({ theme }) => theme.setFlex}
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 
   img {

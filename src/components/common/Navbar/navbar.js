@@ -47,7 +47,7 @@ const Container = styled.div`
 `;
 
 const Logo = styled.div`
-  width: 7%;
+  width: 6.8%;
   cursor: pointer;
   img{
     width: 100%;

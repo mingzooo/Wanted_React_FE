@@ -48,6 +48,9 @@ const Aside = ({
       <Button loginCheck={loginCheck}>기업 서비스</Button>
       <HiddenProfile show={profileUpdown}>
         <ul>
+          <li onClick={() => history.push("/mypage")}>
+            <Link to="/">MY 원티드</Link>
+          </li>
           <li onClick={() => history.push("/myprofile")}>
             <Link to="/">프로필</Link>
           </li>
@@ -58,7 +61,7 @@ const Aside = ({
             <Link to="/">좋아요</Link>
           </li>
           <li>
-            <Link to="/">북마크</Link>
+            <Link to="/bookmarks">북마크</Link>
           </li>
         </ul>
         <LogoutGo />
@@ -161,10 +164,11 @@ const HiddenProfile = styled.div`
       font-weight: 400;
       font-size: 15px;
       color: #333;
-    }
-    li:first-child {
+      &:nth-child(2) {
       border-bottom: 1px solid #e1e2e3;
     }
+    }
+    
   }
 `;
 

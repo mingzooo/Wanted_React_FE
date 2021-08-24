@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { API } from '../../../../config';
 import SearchListModal from './SearchListModal';
 import TagModal from './TagModal';
 
@@ -16,7 +15,10 @@ function SearchModal({ clickSearch }) {
       clearTimeout(timerRef.current);
     }
     timerRef.current = setTimeout(() => {
-      fetch(`${API.AUTO_SEARCH}?query=${searchText}`)
+      fetch(`/company?tag=${searchText}`, {
+        method: 'GET',
+        redirect: 'follow'
+      })
         .then(res => res.json())
         .then(result => setPostingInfo(result.result));
     }, 400);
@@ -34,9 +36,10 @@ function SearchModal({ clickSearch }) {
 
   const handleKeyEvent = e => {
     if (e.key === 'Enter') {
-      history.push(`/search?query=${searchText}`);
+      history.push(`/company?tag=${searchText}`);
       clickSearch();
       e.preventDefault();
+      history.push('/company?tag=카카오');
     }
   };
 

@@ -23,7 +23,7 @@ const Menu = ({ isOverlayOpened, onOpenOverlay, onCloseOverlay }) => {
       <List id="2" index={clickedIndex}>
         커리어 성장
       </List>
-      <List id="3" index={clickedIndex}>
+      <List id="3" index={clickedIndex} onClick={() => { history.push("/salary"); }}>
         직군별 연봉
       </List>
       <List id="4" index={clickedIndex} onClick={() => { history.push("/cv"); }}>
