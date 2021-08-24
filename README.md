@@ -20,3 +20,7 @@
 - KakaoMap API  
 
 ## ✨ Preview ✨  
+[프로젝트 시연영상 Full 여기 클릭](https://youtu.be/jHNMP8b5uug)  
+---  
+  
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/62490238/130641605-58d99867-306d-48da-ad0f-8c47883369cf.gif)
