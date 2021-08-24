@@ -1,66 +1,34 @@
-import React, { Component } from "react";
-import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 
-class MapContent extends Component {
-  constructor() {
-    super();
+const { kakao } = window;
 
-    this.state = {
-      locationData: []
-      // markerPosition: {
-      //   lat: 0,
-      //   lng: 0
-      // }
-    };
-  }
+const MapContent = ({ lat, lon }) => {
+  useEffect(() => {
+    const mapContainer = document.getElementById('myMap'),
+      mapOption = {
+        center: new kakao.maps.LatLng(lat, lon),
+        level: 3,
+      };
 
-  // componentDidMount() {
-  //   const { location } = this.props.location;
-  //   console.log(">>>>>>>>>>", location);
-  //   this.setState(location => ({
-  //     markerPosition: {
-  //       ...location,
-  //       lat: Number(location[0]),
-  //       lng: Number(location[1])
-  //     }
-  //   }));
-  // }
-
-  renderMarkers = (map, maps) => {
-    const { markerPosition } = this.state;
-    let marker = new maps.Marker({
+    const map = new kakao.maps.Map(mapContainer, mapOption);
+    const markerPosition = new kakao.maps.LatLng(lat, lon);
+    const marker = new kakao.maps.Marker({
       position: markerPosition,
-      map
     });
-    return marker;
-  };
+    marker.setMap(map);
 
-  render() {
-    const mapStyles = {
-      width: "62%",
-      height: "90%"
-    };
+    kakao.maps.event.addListener(marker, 'click', function () {
+      window.open(`https://map.kakao.com/link/map/위치,${lat},${lon}`);
+    });
+  }, []);
 
-    const markerPosition = {
-      lat: Number(this.props.location ? this.props.location[0] : 0),
-      lng: Number(this.props.location ? this.props.location[1] : 0)
-    };
+  return (<MapContainer id="myMap"></MapContainer>);
+};
 
-    return (
-      <Map
-        google={this.props.google}
-        zoom={15}
-        style={mapStyles}
-        initialCenter={markerPosition}
-        onGoogleApiLoaded={({ map, maps }) => this.renderMarkers(map, maps)}
-        containerStyle={{ maxWidth: "1090px", height: "400px" }}
-      >
-        <Marker position={markerPosition} />
-      </Map>
-    );
-  }
-}
+const MapContainer = styled.div`
+  width: 100%;
+  height: 300px;
+`;
 
-export default GoogleApiWrapper({
-  apiKey: "AIzaSyARVm_IFPx0fUSRsfdKAvKV9hBG5JWu6xw"
-})(MapContent);
+export default MapContent;

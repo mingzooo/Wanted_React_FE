@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import DetailSlider from "../DetailPage/DetailSlider/DetailSlider";
 import MapContent from "../DetailPage/Map/MapContent";
@@ -9,48 +9,31 @@ import { PageWrap } from "../../components/common/styled";
 import DetailLike from "./DetailLike";
 import DetailSupport from "./DetailSupport";
 
-const DetailPage = () => {
-  // const [detail, setDetail] = useState({
-  //   id: 0,
-  //   title: '',
-  //   name: '',
-  //   response_rate: 0,
-  //   city: '',
-  //   compensation_recommender: 0,
-  //   compensation_applicant: 0,
-  //   likes_count: 0,
-  //   image_url: [],
-  //   contents: '',
-  //   deadline: '',
-  //   address: '',
-  //   location: [],
-  //   taglist: [],
-  //   color: "#dbdbdb",
-  //   button: false,
-  // })
-  const [changePage, setCompoChange] = useState(false);
-  const [detail, setDetail] = useState(Detail.job_detail);
+const DetailPage = ({ recruitsId }) => {
 
-  // componentDidMount() {
-  //   fetch(`${DetailPage_API}/company/${props?.match.params.id}`, {
-  //     method: "GET"
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       if (res.message === "SUCCESS") {
-  //         this.setDetail({
-  //           detail: res.job_detail,
-  //           response_rate: res.job_detail.response_rate
-  //         });
-  //       }
-  //       if (this.state.response_rate > 50) {
-  //         this.setDetail({ button: true });
-  //       }
-  //     });
-  // }
+  const [changePage, setCompoChange] = useState(false);
+  const [detail, setDetail] = useState({});
+
+  const [subDetail, setSub] = useState(Detail.job_detail);
+
+  useEffect(() => {
+    fetch(`/recruits/detail/1`, {
+      method: "GET",
+      redirect: 'follow'
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.isSuccess === true) {
+          setDetail(res.result);
+          console.log("상세조회성공");
+        }
+      });
+  }, []);
+
+  console.log(detail);
 
   const handleChangeBtn = () => {
-    if (detail.response_rate > 50) {
+    if (detail.responseRate > 50) {
       setDetail({ button: true });
     }
   };
@@ -59,6 +42,23 @@ const DetailPage = () => {
     setCompoChange(!changePage);
   };
 
+  const PostbookMark = (recruitId) => {
+    alert("북마크완료!");
+    const token = localStorage.getItem("X-ACCESS-TOKEN");
+    fetch(`/bookmarks/${recruitId}`, {
+      method: "POST",
+      headers: {
+        // Authorization:token,
+        "X-ACCESS-TOKEN": token
+      },
+    })
+      .then((response) => response.json())
+      .then(
+        function innerFunc(res) {
+          console.log(res);
+        }
+      )
+  }
 
   return (
     <PageWrap>
@@ -67,42 +67,42 @@ const DetailPage = () => {
         <DetailPageInner>
           <div className="MainContents">
             <div className="companyImg">
-              <DetailSlider imgUrl={detail.image_url} />
+              <DetailSlider imgUrl={subDetail.image_url} />
             </div>
             <div className="section_1">
-              <h2>{detail.title}</h2>
+              <h2>{subDetail.title}</h2>
               <div className="contents1">
-                <h6>{detail.name}</h6>
-                {detail.button && (
+                <h6>{subDetail.name}</h6>
+                {subDetail.button && (
                   <button onChange={handleChangeBtn}> 응답률 매우 높음</button>
                 )}
-                <h5>{detail.state}</h5>
-                <h5>{detail.city}</h5>
+                <h5>{subDetail.city}</h5>
+                <h5>{subDetail.state}</h5>
               </div>
               <div className="tagArea">
                 <ul>
-                  {detail.tag_list &&
-                    detail.tag_list.map(tag => <li>{tag.name}</li>)}
+                  {subDetail.tag_list &&
+                    subDetail.tag_list.map(tag => <li>{tag.name}</li>)}
                 </ul>
               </div>
             </div>
             <div className="contents2">
-              <p>{detail.contents}</p>
+              <p>{subDetail.contents}</p>
             </div>
             <div className="section_2">
               <div className="section_2Contents">
                 <div className="section_detail">
                   <span className="header">마감일</span>
-                  <span className="body">{detail.deadline}</span>
+                  <span className="body">{subDetail.deadline}</span>
                 </div>
                 <br></br>
                 <div className="section_detail">
                   <span className="header">근무지역</span>
-                  <span className="body">{detail.address}</span>
+                  <span className="body">{subDetail.address}</span>
                 </div>
               </div>
               <div className="map">
-                <MapContent location={detail && detail.location} />
+                <MapContent lat={subDetail.location[0]} lon={subDetail.location[1]} />
               </div>
             </div>
             <div className="section_3">
@@ -116,27 +116,27 @@ const DetailPage = () => {
               <ul>
                 <li>
                   <h4>추천인</h4>
-                  <p>{detail.compensation_recommender}원</p>
+                  <p>{subDetail.compensation_recommender}원</p>
                 </li>
                 <li>
                   <h4>지원자</h4>
-                  <p>{detail.compensation_applicant}원</p>
+                  <p>{subDetail.compensation_applicant}원</p>
                 </li>
               </ul>
             </div>
             <div className="button">
-              <button className="bookMark">
+              <button className="bookMark" onClick={() => { PostbookMark(subDetail.id) }}>
                 <li class="far fa-bookmark"></li>
                 <li>북마크하기</li>
               </button>
               <ApplyButton
-                {...detail}
+                {...subDetail}
                 onClick={() => {
                   handleComponentChange();
                 }}
               >지원하기</ApplyButton>
             </div>
-            <DetailLike Detail={detail} />
+            <DetailLike Detail={subDetail} />
           </div>
         </DetailPageInner>
         {changePage && (

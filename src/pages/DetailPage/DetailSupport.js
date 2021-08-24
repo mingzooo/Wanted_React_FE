@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, Link, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
+import USERDATA from "../../data/UserData";
 
 
 const DetailSupport = ({ data, handleComponentChange, history }) => {
   const [chekedList, setChekedList] = useState([]);
+  const [applyStatus, setApplyStatus] = useState(USERDATA.applyStatus);
   const ResumeBoxHandler = (item) => {
     if (chekedList.includes(item)) {
       setChekedList(chekedList.filter((option) => option !== item));
@@ -20,7 +22,7 @@ const DetailSupport = ({ data, handleComponentChange, history }) => {
   const token = localStorage.getItem("X-ACCESS-TOKEN");
 
   useEffect(() => {
-    fetch(`/profile`, {
+    fetch(`/profiles`, {
       method: 'GET',
       headers: {
         "X-ACCESS-TOKEN": token,
@@ -37,26 +39,30 @@ const DetailSupport = ({ data, handleComponentChange, history }) => {
 
   const handleFetch = () => {
     const token = localStorage.getItem("token");
-    fetch("http://3.131.35.195:8000/user/applicationstatus", {
-      method: "POST",
-      headers: {
-        Authorization: token
-      },
-      body: JSON.stringify({
-        position_id: `${id}`,
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        if (res.message === "DONE") {
-          alert("제출이 완료되었습니다.");
-          gotoHandler();
-        } else {
-          alert("정상적인 접근방법이 아닙니다");
-        }
-      });
+    setApplyStatus({ stepOne: applyStatus.stepOne + 1, });
+    console.log(applyStatus);
+    alert("지원완료되었습니다");
+    // fetch("http://3.131.35.195:8000/user/applicationstatus", {
+    //   method: "POST",
+    //   headers: {
+    //     Authorization: token
+    //   },
+    //   body: JSON.stringify({
+    //     position_id: `${id}`,
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res.message === "DONE") {
+    //       alert("제출이 완료되었습니다.");
+    //       gotoHandler();
+    //     } else {
+    //       alert("정상적인 접근방법이 아닙니다");
+    //     }
+    //   });
   };
+
   const dataInfo = data.applicant_information;
   const dataAttat = data.attatchment;
   return (
@@ -260,10 +266,8 @@ const FooterBox = styled.div`
     border: none;
     outline: none;
     border-radius: 30px;
-    ${({ isChecked }) =>
-    isChecked
-      ? `background: #3366ff;color : white;`
-      : `background: #f2f4f7; color: gray;`}
+    background: #3366ff;
+    cursor: pointer;
   }
 `;
 

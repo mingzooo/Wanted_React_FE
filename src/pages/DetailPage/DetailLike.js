@@ -5,35 +5,54 @@ import styled from 'styled-components';
 
 const DetailLike = ({ Detail }) => {
 
-    const [detail, setDetail] = useState(Detail);
+  const [detail, setDetail] = useState(Detail);
 
-    const handleChangeColor = () => {
-        if (detail.color === "#fe415c") {
-            setDetail({ color: "#dbdbdb", likes_count: detail.likes_count - 1 });
-        } else {
-            setDetail({
-                color: "#fe415c",
-                likes_count: detail.likes_count + 1,
-            });
+  const handleChangeColor = () => {
+    if (detail.color === "#fe415c") {
+      setDetail({ color: "#dbdbdb", likes_count: detail.likes_count - 1 });
+    } else {
+      setDetail({
+        color: "#fe415c",
+        likes_count: detail.likes_count + 1,
+      });
+    }
+  };
+
+  const PostLike = (recruitId) => {
+    // alert("좋아요완료!");
+    const token = localStorage.getItem("X-ACCESS-TOKEN");
+    fetch(`/likes/${recruitId}`, {
+      method: "POST",
+      headers: {
+        // Authorization:token,
+        "X-ACCESS-TOKEN": token
+      },
+    })
+      .then((response) => response.json())
+      .then(
+        function innerFunc(res) {
+          console.log(res);
         }
-    };
-    return (
-        <Like>
-            <div className="likeArea">
-                <button className="likeCount">
-                    <button
-                        onClick={handleChangeColor}
-                        style={{ color: detail.color }}
-                        className="fas fa-heart"
-                    ></button>
-                    <span>{detail.likes_count}</span>
-                </button>
-                <button className="likePeople">
-                    <i class="far fa-user-circle"></i>
-                </button>
-            </div>
-        </Like>
-    )
+      )
+  }
+
+  return (
+    <Like>
+      <div className="likeArea">
+        <button className="likeCount" onClick={() => { PostLike(detail.id) }}>
+          <button
+            onClick={handleChangeColor}
+            style={{ color: detail.color }}
+            className="fas fa-heart"
+          ></button>
+          <span>{detail.likes_count}</span>
+        </button>
+        <button className="likePeople">
+          <i class="far fa-user-circle"></i>
+        </button>
+      </div>
+    </Like>
+  )
 }
 
 const Like = styled.div`
