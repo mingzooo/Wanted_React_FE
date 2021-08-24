@@ -1,7 +1,7 @@
 # Wanted-Rising Test  
 ## 👩‍💻 About Project  
 채용서비스인 원티드(Wanted) 클론코딩 프로젝트입니다.  
-[Wanted 실제 페이지] (https://www.wanted.co.kr/newintro?gclid=Cj0KCQjwsZKJBhC0ARIsAJ96n3XDa0EPsIX5fcxZcvSJaDXtTRtgq4airZXhUT1TTM0n97A1t4G0plUaApuMEALw_wcB)  
+[Wanted](https://www.wanted.co.kr/newintro)  
   
 ## 🔥 Members  
 |이름|담당|  
