@@ -2,9 +2,9 @@ const Detail =
 {
   message: "SUCCESS",
   job_detail: {
-    id: 2,
-    title: "[신규 제품 개발팀] DevOps엔진",
-    name: "카카오뱅크",
+    id: 1,
+    title: "광고 플랫폼 서버 개발자",
+    name: "그로우업",
     response_rate: 65,
     button: true,
     city: "한국",
@@ -13,6 +13,8 @@ const Detail =
     compensation_applicant: '500,000',
     likes_count: 6,
     image_url: [
+      "http://dpf7prwsf5g4.cloudfront.net/company/growup/growup_1.jpg",
+      "https://static.wanted.co.kr/images/company/97/wjccnp6jp69slrk9__400_400.jpg",
       "https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60",
       " https://images.unsplash.com/photo-1582653291997-079a1c04e5a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
     ],

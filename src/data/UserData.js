@@ -4,7 +4,7 @@ const USERDATA = {
     email: 'joozzoo0223@gmail.com',
     phoneNumber: '010-9506-7170',
     picture: 'https://lh3.googleusercontent.com/a/AATXAJyIbmL3JSj7xf3seUPnliwgyBD2b9d_X-H4Zd2W=s96-c',
-    bookmarkList: [
+    RecommendList: [
         {
             id: 1,
             image: 'https://static.wanted.co.kr/images/company/297/9002_2_0.072cc250__400_400.jpg',
@@ -34,7 +34,7 @@ const USERDATA = {
         },
     ],
     applyStatus: {
-        stepOne: 0,
+        stepOne: 1,
         stepTwo: 0,
         stepThree: 0,
         stepFour: 0,
