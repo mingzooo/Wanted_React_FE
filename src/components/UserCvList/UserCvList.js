@@ -33,7 +33,7 @@ const UserCvList = (props) => {
   }
 
   function validation(input) {
-    if (input !== null) {
+    if (input === null) {
       return "작성 완료"
     } else {
       return "작성 중"

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { infoData } from '../../data/infoDB';
+import { infoData } from '../../data/infoData';
 
 const IntroComponents = () => {
     return (

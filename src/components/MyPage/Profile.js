@@ -1,21 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import USERDATA from '../../data/UserData';
 
 const Profile = ({ handleEditMode, onEditMode }) => {
-  const userInfo = USERDATA;
+
+  const [userInfo, setUserinfo] = useState({});
+  const token = localStorage.getItem("X-ACCESS-TOKEN");
+
+  useEffect(() => {
+    fetch(`/profiles`, {
+      method: 'GET',
+      headers: {
+        "X-ACCESS-TOKEN": token,
+      },
+      redirect: 'follow'
+    })
+      .then((response) => response.json())
+      .then(
+        function innerFunc(res) {
+          setUserinfo(res.result);
+        }
+      )
+  });
 
   return (
     <ProfileBox>
       <div />
       <Image
-        src={userInfo.picture} />
+        src={userInfo.profileImage === null ? 'https://img.icons8.com/pastel-glyph/2x/person-male--v2.png' : userInfo.profileImage} />
       {userInfo && (
         <dl>
           <dt>{userInfo.name}</dt>
           <dd>{userInfo.email}</dd>
           <dd>
-            {userInfo.phoneNumber === null ? '미등록' : userInfo.phoneNumber}
+            {userInfo.phone === null ? '미등록' : userInfo.phone}
           </dd>
         </dl>
       )}
