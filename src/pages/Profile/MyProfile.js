@@ -16,7 +16,7 @@ const MyProfile = () => {
     <>
       <Navbar />
       <MyProfileContainer>
-        <PageTitle>MY 원티드</PageTitle>
+        <PageTitle>프로필</PageTitle>
         <section>
           <Profile handleEditMode={handleEditMode} onEditMode={onEditMode} />
           {!onEditMode ? <SetProfile /> : <EditPage />}

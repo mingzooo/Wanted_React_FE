@@ -3,6 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components';
 import { chartOptions } from './ChartData';
 import { chartData } from './ChartData';
+import Navbar from '../../components/common/Navbar/navbar';
 
 function Salary() {
   const [salary, setSalary] = useState([]);
@@ -34,6 +35,7 @@ function Salary() {
 
   return (
     <>
+      <Navbar />
       <Container>
         <Section>
           <div className="header"></div>
@@ -41,7 +43,7 @@ function Salary() {
             data={chartData(salary.avgArray)}
             options={chartOptions}
             width={1100}
-            height={392}
+            height={500}
           />
         </Section>
         <AverageContainer>
@@ -53,7 +55,8 @@ function Salary() {
         </AverageContainer>
       </Container>
       <SelectContainer>
-        <div>
+        <div className="select">
+          <select><option>개발</option></select>
           <select onChange={handleOnChange}>
             {jobs[0]?.jobs.map(job => (
               <option name={job.name} value={job.name} onClick={handleOnClick}>
@@ -61,6 +64,10 @@ function Salary() {
               </option>
             ))}
           </select>
+          <select onChange={handleOnChange}>
+            <option>신입</option>
+          </select>
+          <select></select>
         </div>
       </SelectContainer>
     </>
@@ -71,12 +78,12 @@ export default Salary;
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  background-color: rgb(80, 190, 121);
+  background-color: #22BD79;
 `;
 
 const Section = styled.section`
-  width: 784px;
-  height: 392px;
+  width: 60%;
+  height: 70%;
   padding-top: 80px;
 `;
 
@@ -87,7 +94,7 @@ const AverageContainer = styled.section`
   button {
     margin: 0 10px 10px 0;
     padding: 8px 10px;
-    color: #22bd79;
+    color: #98D6BA;
     background-color: #fff;
     border-radius: 3px;
     border: none;
@@ -112,10 +119,16 @@ const AverageContainer = styled.section`
 const SelectContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 50px;
-
-  select {
-    width: 500px;
-    font-size: 30px;
+  background-color: white;
+  .select {
+    width: 70%;
+    display:flex;
+    flex-direction:row;
+    select{
+      padding: 7px;
+      font-size: 1rem;
+      width: 23%;
+      color: #333;
+    }
   }
 `;
