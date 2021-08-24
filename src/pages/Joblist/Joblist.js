@@ -150,14 +150,13 @@ const useJobsFetch = (main, sub, location, jobLoading, dispatch) => {
       ? {
         method: "GET",
         headers: {
-          Authorization: localStorage.getItem("token")
+          "X-ACCESS-TOKEN": option
         }
       }
       : {
         method: "GET"
       };
-    if (jobLoading) console.log(JOB_API, query);
-    // fetch(`${JOB_API}${query}`, option)
+    fetch(`/joblist/${query}`, option)
     fetch('/data/job_list.json')
       .then(res => res.json())
       .then(res => {

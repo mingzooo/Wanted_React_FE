@@ -9,7 +9,7 @@ import Job from "../../../../components/Job/Job";
 import { setUrlLoading } from "../../../../store/actions/index";
 
 const filterData = [
-  { name: "태그", key: "tag" },
+  { name: "태그", subname: "딱 맞는 기업찾기", key: "tag" },
   { name: "지역", key: "city" },
   { name: "경력", key: "career" }
 ];
@@ -51,11 +51,12 @@ const JoblistMain = ({
           {filterData.map((keyWord, idx) => (
             <FilterButton onClick={() => activateModal(idx + 1)}>
               <span>{keyWord.name} </span>
+              <span>{keyWord.subname} </span>
               <span>
                 {userFilterState[keyWord.key] &&
                   userFilterState[keyWord.key][0]?.name}
               </span>
-              <span>▼</span>
+              <i class="fas fa-caret-down"></i>
             </FilterButton>
           ))}
         </div>
@@ -70,7 +71,7 @@ const JoblistMain = ({
       </JobSortSection>
       <LikeButtonBox>
         <button onClick={() => history.push("/favoritelist")}>
-          ♥ 북마크 모아보기 &gt;
+          <li class="far fa-bookmark"></li> 북마크 모아보기 &gt;
         </button>
       </LikeButtonBox>
       <JoblistSection>
@@ -115,6 +116,10 @@ const JobSortSection = styled.div`
 const LikeButtonBox = styled.div`
   width: 70%;
   button {
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    font-size:1rem;
     font-weight: 700;
     color: #3366ff;
   }
@@ -126,7 +131,7 @@ const JoblistSection = styled.section`
     width: 100%;
     margin-top: 10px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-direction: row;
     flex-wrap: wrap;
   }
@@ -135,13 +140,18 @@ const JoblistSection = styled.section`
 const FilterButtonStyle = css`
   border-radius: 5px;
   border: 0.1px solid rgba(0, 0, 0, 0.1);
-  padding: 12px 15px;
+  padding: 9px 12px;
   outline: none;
+  background-color: #fff;
+  cursor: pointer;
 
   span {
     &:nth-child(2) {
       margin-right: 5px;
     }
+  }
+  :hover{
+    background-color: rgba(0,0,0,0.03);
   }
 `;
 
@@ -155,8 +165,12 @@ const FilterButton = styled.button`
 
   span {
     font-size: 14px;
-
     &:nth-child(2) {
+      font-weight: 530;
+      color: rgba(0,0,0,0.5);
+    }
+
+    &:nth-child(3) {
       font-weight: 700;
       color: #3366ff;
     }

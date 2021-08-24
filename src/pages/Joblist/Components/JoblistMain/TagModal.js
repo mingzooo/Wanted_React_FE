@@ -20,14 +20,15 @@ const TagModal = ({ closeModal }) => {
     });
     if (!isHavingTag) {
       if (userFilterState.tag.length < 3) dispatch(addFilter({ id, name }));
-      else alert("이런 욕심쟁이! 태그는 3개 까지만^.~");
+      else alert("태그는 3개까지만 선택가능합니다.");
     }
     if (isHavingTag)
       dispatch(deleteFilter(userFilterState.tag.filter(tag => tag.id !== id)));
   };
 
   useEffect(() => {
-    fetch(`${FILTER_API}/tag`)
+    // fetch(`${FILTER_API}/tag`)
+    fetch("/data/filteringTags_list.json")
       .then(res => res.json())
       .then(res => {
         setFilteringTags(res.tag_list);
@@ -77,7 +78,7 @@ const TagModal = ({ closeModal }) => {
           </div>
         </div>
       </Article>
-      <SelecedTagsBox>
+      <SelectedTagBox>
         <div>
           {userFilterState.tag.map(tag => (
             <SelectedButton>
@@ -102,16 +103,17 @@ const TagModal = ({ closeModal }) => {
             확인
           </button>
         </footer>
-      </SelecedTagsBox>
+      </SelectedTagBox>
     </Modal>
   );
 };
 
 const Modal = styled.div`
-  width: 500px;
-  height: 556px;
+  width: 32%;
+  height: 75%;
   background-color: white;
   padding-top: 20px;
+  border-radius: 4px;
 `;
 
 const HeaderMenu = styled.div`
@@ -129,15 +131,13 @@ const HeaderMenu = styled.div`
   span {
     color: rgba(0, 0, 0, 0.4);
     font-size: 14px;
-
     cursor: pointer;
 
     &:nth-child(3) {
       text-align: end;
     }
   }
-
-  div {
+  div{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -162,7 +162,7 @@ const HeaderMenu = styled.div`
   }
 `;
 
-const Article = styled.article`
+const Article = styled.div`
   padding: 0 20px;
   height: 270px;
   overflow: auto;
@@ -170,17 +170,18 @@ const Article = styled.article`
 
   h3 {
     font-size: 14px;
+    font-weight: bold;
     margin-bottom: 25px;
     line-height: 20px;
   }
 
-  div {
+  div{
     font-size: 13px;
     margin-bottom: 20px;
 
     h4 {
       font-weight: 400;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     div {
@@ -190,37 +191,42 @@ const Article = styled.article`
   }
 `;
 
+
 const TagButton = styled.button`
   border-radius: 20px;
-  border: 1px solid ${props => (props.isClicked ? "#3366ff" : "none")};
+  border: ${props => (props.isClicked ? "1px solid #3366ff" : "none")};
   background-color: #e9f4fb;
-  padding: 10px 15px;
+  padding: 8px 12px;
   color: #333333;
   margin: 0 8px 5px 0;
   font-size: 13px;
+  cursor: pointer;
 `;
 
 const SelectedButton = styled.span`
-  height: 34px;
   border-radius: 20px;
   border: 1px solid #3366ff;
-  background-color: #ffffff;
-  padding: 8px 15px;
-  color: #3366ff;
+  color : #3366ff;
+  background-color: white;
+  padding: 8px 12px;
   margin: 0 8px 5px 0;
   font-size: 13px;
-  font-weight: bold;
+  cursor: pointer;
+  height: 30%;
 
   button {
-    margin-left: 5px;
+    border: none;
+    background-color: #fff;
+    color : #3366ff;
+    cursor: pointer;
   }
 `;
 
-const SelecedTagsBox = styled.div`
+const SelectedTagBox = styled.div`
   div {
     display: flex;
     padding: 20px;
-    height: 100px;
+    height: 70px;
     background-color: #eeeeee;
     overflow: auto;
     flex-wrap: wrap;
@@ -231,17 +237,21 @@ const SelecedTagsBox = styled.div`
 
     h5 {
       text-align: start;
-      padding: 20px 20px;
+      padding: 10px;
+      font-size: 0.9rem;
     }
 
     button {
       width: 460px;
       height: 50px;
       border-radius: 50px;
+      border:none;
       background-color: #3366ff;
       color: white;
+      font-size: 1rem;
       font-weight: bold;
       text-align: center;
+      cursor: pointer;
     }
   }
 `;
