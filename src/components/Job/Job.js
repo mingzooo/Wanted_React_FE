@@ -18,11 +18,14 @@ const Job = ({ job, history }) => {
     likes_status,
     response_rate
   } = job;
-  const onLike = () => {
-    fetch(USER_LIKE_API, {
+
+  const token = localStorage.getItem("X-ACCESS-TOKEN");
+
+  const onLike = ({ recruitId }) => {
+    fetch(`/likes/${recruitId}`, {
       method: "POST",
       headers: {
-        Authorization: localStorage.getItem("token")
+        "X-ACCESS-TOKEN": token
       },
       body: JSON.stringify({
         company_id: id
@@ -55,12 +58,11 @@ const Job = ({ job, history }) => {
 };
 
 const JobBox = styled.li`
-  width: 20%;
+  width: 24%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 0 0 30px 0;
-  padding: 10px;
+  padding: 5px;
   header {
     position: relative;
     border-radius: 5px;
