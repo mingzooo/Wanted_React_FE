@@ -4,11 +4,12 @@
 [Wanted](https://www.wanted.co.kr/newintro)  
   
 ## 🔥 Members  
-|이름|담당|  
+***FE담당***  
+|담당|인원수|  
 |---|---|
-|박민주|프론트엔드|  
-|박현준|백엔드|  
-|김소정|백엔드|  
+|프론트엔드|1명|  
+|백엔드|2명|  
+
   
 ## 🛠 Front-End Skills  
 - HTML, CSS
